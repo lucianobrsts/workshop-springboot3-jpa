@@ -8,8 +8,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,23 +27,29 @@ public class Product implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Getter @Setter
+	@Getter
+	@Setter
 	private Long id;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	private String name;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	private String description;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	private Double price;
 
-	@Getter @Setter
+	@Getter
+	@Setter
 	private String imgUrl;
 
-	@Transient
 	@Getter
+	@ManyToMany
+	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 
 	public Product(Long id, String name, String description, Double price, String imgUrl) {
