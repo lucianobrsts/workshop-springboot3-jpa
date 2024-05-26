@@ -3,6 +3,7 @@ package com.educandoweb.course.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.catalina.startup.ClassLoaderFactory.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,10 @@ public class UserService {
 	
 	public User insert(User obj) {
 		return userRepository.save(obj);
+	}
+	
+	public void delete(Long id) {
+		userRepository.deleteById(id);
 	}
 
 }
